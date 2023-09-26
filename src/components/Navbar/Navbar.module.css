@@ -1,0 +1,23 @@
+.divNavbar {
+  width: 100%;
+}
+
+.divNavbar nav {
+  width: 100%;
+  padding: 20px;
+}
+
+.divNavbar nav ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.divNavbar nav ul .columnDos,
+.divNavbar nav ul .columnUno {
+  display: flex;
+  gap: 40px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}

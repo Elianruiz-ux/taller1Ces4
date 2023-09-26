@@ -1,0 +1,41 @@
+.inputDiv {
+  width: 100%;
+}
+
+.inputDiv label {
+  text-transform: capitalize;
+}
+.inputDiv input {
+  appearance: none;
+  text-indent: 10px;
+  padding: 5px;
+  border: 1px solid var(--bg-color-3);
+}
+
+.inputDiv input:focus {
+  outline: none;
+}
+
+.inputnavbar {
+  display: grid;
+  text-align: center;
+  gap: 5px;
+}
+
+.inputnavbar input {
+  border-radius: 0px;
+}
+
+.inputforms {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 120px 1fr;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+}
+
+.inputforms input {
+  width: 100%;
+  border-radius: 5px;
+}

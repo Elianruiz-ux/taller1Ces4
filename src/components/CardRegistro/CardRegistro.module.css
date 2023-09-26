@@ -1,0 +1,50 @@
+.divRegistro {
+  width: 100%;
+  height: fit-content;
+  border: 1px solid var(--bg-color-4);
+  background-color: var(--bg-color-2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.divRegistro .containerTitulo {
+  padding: 10px;
+  background-color: var(--bg-color-5);
+}
+
+.divRegistro .containerForm {
+  padding: 10px;
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+.divRegistro .containerForm .containerSelect {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 120px 1fr;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+}
+.divRegistro .containerForm .containerSelect select {
+  text-indent: 10px;
+  padding: 5px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid var(--bg-color-3);
+}
+
+select:focus {
+  outline: none;
+}
+
+/* .divRegistro .containerForm .containerInput {
+} */
+
+.divRegistro .containerForm .containerButton {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  gap: 30px;
+}

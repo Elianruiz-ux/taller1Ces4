@@ -1,0 +1,26 @@
+.button {
+  appearance: none;
+  border: none;
+  padding: 10px;
+  text-transform: capitalize;
+  background-color: var(--bg-color-transparent);
+  border-radius: 5px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: no-drop;
+}
+
+.primary {
+  background-color: var(--bg-color-1);
+  color: var(--bg-color-2);
+}
+.cancel {
+  background-color: var(--bg-color-2);
+  border: 1px solid var(--bg-color-3);
+  color: var(--bg-color-4);
+}
