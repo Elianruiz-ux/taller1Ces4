@@ -8,8 +8,8 @@ function Navbar({ saldo, saldoFinal }) {
       <nav>
         <ul>
           <div className={`${style.columnUno}`}>
-            <li>logo</li>
-            <li>Titulo</li>
+            <li>Manejo.com</li>
+            <li>Inicio</li>
           </div>
           <div className={`${style.columnDos}`}>
             <li>

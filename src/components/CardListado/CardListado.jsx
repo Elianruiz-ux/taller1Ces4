@@ -2,9 +2,31 @@
 import style from "../CardListado/CardListado.module.css";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useState } from "react";
 
 function CardListado({ listadoMovimientos }) {
   const num = listadoMovimientos.length;
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Función para manejar cambios en el campo de búsqueda
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filtrar los movimientos según el término de búsqueda
+  const filteredMovimientos = listadoMovimientos.filter((movimiento) => {
+    const movimientoNombre = movimiento.nombre.toLowerCase();
+    const movimientoTipo = movimiento.tipoMovimiento.toLowerCase();
+    const movimientoCantidad = movimiento.cantidad.toString().toLowerCase();
+    const searchTermLower = searchTerm.toLowerCase();
+
+    // Buscar el término de búsqueda en cualquier parte de los campos
+    return (
+      movimientoNombre.includes(searchTermLower) ||
+      movimientoTipo.includes(searchTermLower) ||
+      movimientoCantidad.includes(searchTermLower)
+    );
+  });
 
   return (
     <div className={`${style.divListado}`}>
@@ -15,7 +37,12 @@ function CardListado({ listadoMovimientos }) {
       <div className={`${style.containerArray}`}>
         <div className={`${style.containerFiltros}`}>
           <div>
-            <input type="text" placeholder="Buscar" />
+            <input
+              type="text"
+              placeholder="Buscar"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
           </div>
           <div>
             <input type="checkbox" name="todo" id="todos" />
@@ -33,7 +60,7 @@ function CardListado({ listadoMovimientos }) {
         <div className={`${style.containerTabla}`}>
           <table>
             <tbody>
-              {listadoMovimientos?.map((movimiento) => (
+              {filteredMovimientos?.map((movimiento) => (
                 <tr key={movimiento.id}>
                   <td>
                     <button className={`${style.btnEliminar}`}>
