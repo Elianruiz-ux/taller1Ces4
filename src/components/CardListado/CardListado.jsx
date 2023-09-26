@@ -3,28 +3,32 @@ import style from "../CardListado/CardListado.module.css";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
+import { convertirDecimal } from "../../Utils/Utils";
 
-function CardListado({ listadoMovimientos }) {
-  const num = listadoMovimientos.length;
+function CardListado({ listadoMovimientos, setShowDeletePopup }) {
+  const cantidadMovimientos = listadoMovimientos.length;
   const [searchTerm, setSearchTerm] = useState("");
+  const [filtroMovimiento, setFiltroMovimiento] = useState("Todos");
 
-  // Función para manejar cambios en el campo de búsqueda
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filtrar los movimientos según el término de búsqueda
   const filteredMovimientos = listadoMovimientos.filter((movimiento) => {
     const movimientoNombre = movimiento.nombre.toLowerCase();
     const movimientoTipo = movimiento.tipoMovimiento.toLowerCase();
     const movimientoCantidad = movimiento.cantidad.toString().toLowerCase();
     const searchTermLower = searchTerm.toLowerCase();
 
-    // Buscar el término de búsqueda en cualquier parte de los campos
+    const mostrarMovimiento =
+      filtroMovimiento === "Todos" ||
+      movimientoTipo === filtroMovimiento.toLowerCase();
+
     return (
-      movimientoNombre.includes(searchTermLower) ||
-      movimientoTipo.includes(searchTermLower) ||
-      movimientoCantidad.includes(searchTermLower)
+      mostrarMovimiento &&
+      (movimientoNombre.includes(searchTermLower) ||
+        movimientoTipo.includes(searchTermLower) ||
+        movimientoCantidad.includes(searchTermLower))
     );
   });
 
@@ -32,7 +36,7 @@ function CardListado({ listadoMovimientos }) {
     <div className={`${style.divListado}`}>
       <div className={`${style.containerTitulo}`}>
         <h4>Listado Movimientos</h4>
-        <p>{num}</p>
+        <p>{cantidadMovimientos}</p>
       </div>
       <div className={`${style.containerArray}`}>
         <div className={`${style.containerFiltros}`}>
@@ -45,47 +49,82 @@ function CardListado({ listadoMovimientos }) {
             />
           </div>
           <div>
-            <input type="checkbox" name="todo" id="todos" />
+            <input
+              type="checkbox"
+              onChange={() => setFiltroMovimiento("Todos")}
+              name="todo"
+              id="todos"
+              value={"Todos"}
+              checked={filtroMovimiento === "Todos"}
+            />
             <label htmlFor="todos">Todos</label>
           </div>
           <div>
-            <input type="checkbox" name="ingreso" id="ingreso" />
+            <input
+              onChange={() => setFiltroMovimiento("Ingreso")}
+              type="checkbox"
+              name="ingreso"
+              id="ingreso"
+              value={"Ingreso"}
+              checked={filtroMovimiento === "Ingreso"}
+            />
             <label htmlFor="ingreso">Ingreso</label>
           </div>
           <div>
-            <input type="checkbox" name="gasto" id="gasto" />
+            <input
+              type="checkbox"
+              name="gasto"
+              id="gasto"
+              onChange={() => setFiltroMovimiento("Gasto")}
+              value={"Gasto"}
+              checked={filtroMovimiento === "Gasto"}
+            />
             <label htmlFor="gasto">Gasto</label>
           </div>
         </div>
         <div className={`${style.containerTabla}`}>
           <table>
             <tbody>
-              {filteredMovimientos?.map((movimiento) => (
-                <tr key={movimiento.id}>
-                  <td>
-                    <button className={`${style.btnEliminar}`}>
-                      <AiOutlineClose />
-                    </button>
-                  </td>
-                  <td>
-                    <button className={`${style.btnEditar}`}>
-                      <BiSolidPencil />
-                    </button>
-                  </td>
-                  <td>{movimiento.nombre}</td>
-                  <td className={`${style.salario}`}>
-                    <span
-                      style={
-                        movimiento.tipoMovimiento == "Gasto"
-                          ? { backgroundColor: "var(--bg-color-7)" }
-                          : { backgroundColor: "var(--bg-color-9)" }
-                      }
-                    >
-                      {movimiento.cantidad}
-                    </span>
-                  </td>
+              {cantidadMovimientos > 0 ? (
+                filteredMovimientos?.map((movimiento) => (
+                  <tr key={movimiento.id}>
+                    <td>
+                      <button
+                        className={`${style.btnEliminar}`}
+                        onClick={() =>
+                          setShowDeletePopup({
+                            id: movimiento.id,
+                            isOpen: true,
+                          })
+                        }
+                      >
+                        <AiOutlineClose />
+                      </button>
+                    </td>
+                    <td>
+                      <button className={`${style.btnEditar}`}>
+                        <BiSolidPencil />
+                      </button>
+                    </td>
+                    <td>{movimiento.nombre}</td>
+                    <td className={`${style.salario}`}>
+                      <span
+                        style={
+                          movimiento.tipoMovimiento == "Gasto"
+                            ? { backgroundColor: "var(--bg-color-7)" }
+                            : { backgroundColor: "var(--bg-color-9)" }
+                        }
+                      >
+                        {convertirDecimal(movimiento.cantidad)}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td>Sin datos existentes</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

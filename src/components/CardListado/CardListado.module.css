@@ -54,6 +54,13 @@
   padding: 0 4px;
 }
 
+.divListado
+  .containerArray
+  .containerFiltros
+  :is(input[type="checkbox"], label) {
+  cursor: pointer;
+}
+
 .divListado .containerArray .containerFiltros input[type="checkbox"] {
   width: 15px;
   height: 15px;

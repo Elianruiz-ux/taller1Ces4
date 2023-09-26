@@ -19,7 +19,6 @@ function CardRegistro({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar las entradas
     if (
       nombre.trim() === "" ||
       isNaN(cantidad) ||
@@ -37,10 +36,8 @@ function CardRegistro({
       return;
     }
 
-    // Generar un ID único usando uuid
     const id = uuidv4();
 
-    // Crear un objeto de movimiento
     const movimiento = {
       id,
       tipoMovimiento,
@@ -48,12 +45,10 @@ function CardRegistro({
       cantidad: parseFloat(cantidad),
     };
 
-    // Llamar a la función para agregar el movimiento
     setShowSuccessPopup(true);
     setPopupMessage(`El ${tipoMovimiento} fue agregado con exitoso`);
     onAgregarMovimiento(movimiento);
 
-    // Limpiar el formulario
     setTipoMovimiento("");
     setNombre("");
     setCantidad("");
@@ -68,7 +63,7 @@ function CardRegistro({
   return (
     <div className={`${style.divRegistro}`}>
       <div className={`${style.containerTitulo}`}>
-        <h4>Registro</h4>
+        <h4>Registro o Editar</h4>
       </div>
       <div className={`${style.containerForm}`}>
         <div className={`${style.containerSelect}`}>
@@ -78,9 +73,7 @@ function CardRegistro({
             onChange={(e) => setTipoMovimiento(e.target.value)}
             id="select"
           >
-            <option value="" selected>
-              --Seleccione--
-            </option>
+            <option defaultValue="">--Seleccione--</option>
             <option value="Ingreso">Ingreso</option>
             <option value="Gasto">Gasto</option>
           </select>

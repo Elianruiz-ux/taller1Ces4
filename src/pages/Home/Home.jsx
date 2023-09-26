@@ -6,12 +6,17 @@ import CardListado from "../../components/CardListado/CardListado";
 import { useState } from "react";
 import SuccessPopup from "../../components/Popups/SuccessPopup";
 import ErrorPopup from "../../components/Popups/ErrorPopup";
+import DeletePopup from "../../components/Popups/DeletePopup";
 
 function Home() {
   const [movimientos, setMovimientos] = useState([]);
   const [saldo, setSaldo] = useState(1000);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState({
+    id: null,
+    isOpen: false,
+  });
   const [popupMessage, setPopupMessage] = useState("");
 
   const saldoFinal = movimientos.reduce((total, movimiento) => {
@@ -42,6 +47,14 @@ function Home() {
           onClose={() => setShowErrorPopup(false)}
         />
       )}
+      {showDeletePopup.isOpen && (
+        <DeletePopup
+          idItem={showDeletePopup.id}
+          onClose={() => setShowDeletePopup({ id: null, isOpen: false })}
+          setListadoMovimientos={setMovimientos}
+          listadoMovimientos={movimientos}
+        />
+      )}
       <Navbar saldo={saldo} saldoFinal={saldoFinal}></Navbar>
       <main className={`${style.mainContainer}`}>
         <section>
@@ -56,7 +69,10 @@ function Home() {
           />
         </section>
         <section>
-          <CardListado listadoMovimientos={movimientos} />
+          <CardListado
+            setShowDeletePopup={setShowDeletePopup}
+            listadoMovimientos={movimientos}
+          />
         </section>
       </main>
     </div>

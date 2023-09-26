@@ -11,7 +11,7 @@ function App() {
         <ToastContainer autoClose={5000} position="top-center" />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="**" element={<Home />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
     </HashRouter>

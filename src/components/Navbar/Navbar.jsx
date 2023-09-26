@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { convertirDecimal } from "../../Utils/Utils";
 import Input from "../Input/Input";
 import style from "../Navbar/Navbar.module.css";
 
@@ -14,22 +15,22 @@ function Navbar({ saldo, saldoFinal }) {
           <div className={`${style.columnDos}`}>
             <li>
               <Input
-                type={"number"}
+                type={"text"}
                 idInput={"idsaldoIni"}
                 labelName={"Saldo Inicial: "}
                 variant={"navbar"}
                 disabled={true}
-                value={saldo}
+                value={convertirDecimal(saldo)}
               />
             </li>
             <li>
               <Input
-                type={"number"}
+                type={"text"}
                 idInput={"idsaldoFin"}
                 labelName={"Saldo Final: "}
                 variant={"navbar"}
                 disabled={true}
-                value={saldoFinal}
+                value={convertirDecimal(saldoFinal)}
               />
             </li>
           </div>

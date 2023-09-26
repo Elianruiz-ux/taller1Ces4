@@ -21,3 +21,18 @@
   justify-content: center;
   align-items: center;
 }
+
+.divNavbar nav ul .columnUno {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.divNavbar nav ul .columnUno li:first-child {
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  text-decoration: dotted underline;
+}
+
+.divNavbar nav ul .columnUno li:last-child {
+  font-size: 16px;
+}
