@@ -2,7 +2,7 @@
 import Input from "../Input/Input";
 import style from "../Navbar/Navbar.module.css";
 
-function Navbar() {
+function Navbar({ saldo, saldoFinal }) {
   return (
     <header className={`${style.divNavbar}`}>
       <nav>
@@ -18,6 +18,8 @@ function Navbar() {
                 idInput={"idsaldoIni"}
                 labelName={"Saldo Inicial: "}
                 variant={"navbar"}
+                disabled={true}
+                value={saldo}
               />
             </li>
             <li>
@@ -26,6 +28,8 @@ function Navbar() {
                 idInput={"idsaldoFin"}
                 labelName={"Saldo Final: "}
                 variant={"navbar"}
+                disabled={true}
+                value={saldoFinal}
               />
             </li>
           </div>
