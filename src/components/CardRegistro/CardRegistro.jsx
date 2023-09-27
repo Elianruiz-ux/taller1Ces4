@@ -15,6 +15,8 @@ function CardRegistro({
   setEditar,
   listado,
   setMovimientos,
+  contar,
+  setContar,
 }) {
   const [tipoMovimiento, setTipoMovimiento] = useState("");
   const [nombre, setNombre] = useState("");
@@ -60,6 +62,8 @@ function CardRegistro({
     };
 
     setShowSuccessPopup(true);
+    setContar(contar + 1);
+
     setPopupMessage(`El ${tipoMovimiento} fue agregado con exitoso`);
     onAgregarMovimiento(movimiento);
 

@@ -7,14 +7,17 @@ function DeletePopup({
   onClose,
   setListadoMovimientos,
   listadoMovimientos,
-  setEditar
+  setEditar,
+  contar,
+  setContar,
 }) {
   const handleEliminarClick = () => {
     const nuevosMovimientos = listadoMovimientos.filter(
       (movimiento) => movimiento.id !== idItem
     );
     setListadoMovimientos(nuevosMovimientos);
-    setEditar('');
+    setEditar("");
+    setContar(contar + 1);
     onClose();
   };
 

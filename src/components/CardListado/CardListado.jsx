@@ -5,7 +5,12 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { convertirDecimal } from "../../Utils/Utils";
 
-function CardListado({ listadoMovimientos, setShowDeletePopup, setEditar }) {
+function CardListado({
+  listadoMovimientos,
+  setShowDeletePopup,
+  setEditar,
+  contar,
+}) {
   const cantidadMovimientos = listadoMovimientos.length;
   const [searchTerm, setSearchTerm] = useState("");
   const [filtroMovimiento, setFiltroMovimiento] = useState("Todos");
@@ -36,7 +41,7 @@ function CardListado({ listadoMovimientos, setShowDeletePopup, setEditar }) {
     <div className={`${style.divListado}`}>
       <div className={`${style.containerTitulo}`}>
         <h4>Listado Movimientos</h4>
-        <p>{cantidadMovimientos}</p>
+        <p>{contar}</p>
       </div>
       <div className={`${style.containerArray}`}>
         <div className={`${style.containerFiltros}`}>

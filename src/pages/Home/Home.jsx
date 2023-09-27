@@ -19,6 +19,7 @@ function Home() {
     isOpen: false,
   });
   const [popupMessage, setPopupMessage] = useState("");
+  const [contar, setContar] = useState(0);
 
   const saldoFinal = movimientos.reduce((total, movimiento) => {
     if (movimiento.tipoMovimiento === "Ingreso") {
@@ -54,6 +55,8 @@ function Home() {
           setListadoMovimientos={setMovimientos}
           listadoMovimientos={movimientos}
           setEditar={setEditar}
+          contar={contar}
+          setContar={setContar}
         />
       )}
       <Navbar saldo={saldo} saldoFinal={saldoFinal}></Navbar>
@@ -71,10 +74,13 @@ function Home() {
             editar={editar}
             listado={movimientos}
             setMovimientos={setMovimientos}
+            setContar={setContar}
+            contar={contar}
           />
         </section>
         <section>
           <CardListado
+            contar={contar}
             setShowDeletePopup={setShowDeletePopup}
             listadoMovimientos={movimientos}
             setEditar={setEditar}
