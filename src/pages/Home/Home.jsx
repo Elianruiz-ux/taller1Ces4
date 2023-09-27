@@ -13,6 +13,7 @@ function Home() {
   const [saldo, setSaldo] = useState(1000);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [editar, setEditar] = useState(null);
   const [showDeletePopup, setShowDeletePopup] = useState({
     id: null,
     isOpen: false,
@@ -29,7 +30,6 @@ function Home() {
   }, saldo);
 
   const agregarMovimiento = (movimiento) => {
-    // Agregar el movimiento al estado de movimientos
     setMovimientos([...movimientos, movimiento]);
   };
 
@@ -53,6 +53,7 @@ function Home() {
           onClose={() => setShowDeletePopup({ id: null, isOpen: false })}
           setListadoMovimientos={setMovimientos}
           listadoMovimientos={movimientos}
+          setEditar={setEditar}
         />
       )}
       <Navbar saldo={saldo} saldoFinal={saldoFinal}></Navbar>
@@ -66,12 +67,17 @@ function Home() {
             setShowSuccessPopup={setShowSuccessPopup}
             setShowErrorPopup={setShowErrorPopup}
             saldoFinal={saldoFinal}
+            setEditar={setEditar}
+            editar={editar}
+            listado={movimientos}
+            setMovimientos={setMovimientos}
           />
         </section>
         <section>
           <CardListado
             setShowDeletePopup={setShowDeletePopup}
             listadoMovimientos={movimientos}
+            setEditar={setEditar}
           />
         </section>
       </main>

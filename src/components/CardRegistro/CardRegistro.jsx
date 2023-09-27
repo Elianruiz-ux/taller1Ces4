@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import style from "../CardRegistro/CardRegistro.module.css";
 import Input from "../Input/Input";
@@ -11,10 +11,24 @@ function CardRegistro({
   setShowSuccessPopup,
   setShowErrorPopup,
   saldoFinal,
+  editar,
+  setEditar,
+  listado,
+  setMovimientos,
 }) {
   const [tipoMovimiento, setTipoMovimiento] = useState("");
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
+
+  useEffect(() => {
+    if (editar) {
+      setTipoMovimiento(editar.tipoMovimiento);
+      setNombre(editar.nombre);
+      setCantidad(editar.cantidad);
+    } else {
+      handleCancelar();
+    }
+  }, [editar]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,21 +63,56 @@ function CardRegistro({
     setPopupMessage(`El ${tipoMovimiento} fue agregado con exitoso`);
     onAgregarMovimiento(movimiento);
 
-    setTipoMovimiento("");
-    setNombre("");
-    setCantidad("");
+    handleCancelar();
   };
 
   const handleCancelar = () => {
     setTipoMovimiento("");
     setNombre("");
     setCantidad("");
+    setEditar("");
+  };
+
+  const handleClickGuardar = () => {
+    if (
+      nombre.trim() === "" ||
+      isNaN(cantidad) ||
+      cantidad <= 0 ||
+      tipoMovimiento === ""
+    ) {
+      setShowErrorPopup(true);
+      setPopupMessage("Por favor, completa el formulario correctamente.");
+      return;
+    }
+
+    if (tipoMovimiento === "Gasto" && cantidad > saldoFinal) {
+      setShowErrorPopup(true);
+      setPopupMessage("No tienes suficiente saldo para este gasto.");
+      return;
+    }
+
+    const editRow = (todo) => {
+      const newLista = listado?.map((item) =>
+        item.id === todo.id
+          ? {
+              ...item,
+              nombre: nombre,
+              tipoMovimiento: tipoMovimiento,
+              cantidad: parseFloat(cantidad),
+            }
+          : item
+      );
+      setMovimientos(newLista);
+      handleCancelar();
+    };
+
+    editRow(editar);
   };
 
   return (
     <div className={`${style.divRegistro}`}>
       <div className={`${style.containerTitulo}`}>
-        <h4>Registro o Editar</h4>
+        <h4>{editar ? "Editar" : "Registro"}</h4>
       </div>
       <div className={`${style.containerForm}`}>
         <div className={`${style.containerSelect}`}>
@@ -105,9 +154,9 @@ function CardRegistro({
             onClick={handleCancelar}
           />
           <Button
-            nombre={"agregar movimiento"}
+            nombre={editar ? "Guardar edicion" : "agregar movimiento"}
             variant={"primary"}
-            onClick={handleSubmit}
+            onClick={editar ? handleClickGuardar : handleSubmit}
           />
         </div>
       </div>

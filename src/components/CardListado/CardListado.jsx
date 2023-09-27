@@ -5,7 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { convertirDecimal } from "../../Utils/Utils";
 
-function CardListado({ listadoMovimientos, setShowDeletePopup }) {
+function CardListado({ listadoMovimientos, setShowDeletePopup, setEditar }) {
   const cantidadMovimientos = listadoMovimientos.length;
   const [searchTerm, setSearchTerm] = useState("");
   const [filtroMovimiento, setFiltroMovimiento] = useState("Todos");
@@ -86,8 +86,8 @@ function CardListado({ listadoMovimientos, setShowDeletePopup }) {
           <table>
             <tbody>
               {cantidadMovimientos > 0 ? (
-                filteredMovimientos?.map((movimiento) => (
-                  <tr key={movimiento.id}>
+                filteredMovimientos?.map((movimiento, index) => (
+                  <tr key={index}>
                     <td>
                       <button
                         className={`${style.btnEliminar}`}
@@ -102,7 +102,10 @@ function CardListado({ listadoMovimientos, setShowDeletePopup }) {
                       </button>
                     </td>
                     <td>
-                      <button className={`${style.btnEditar}`}>
+                      <button
+                        className={`${style.btnEditar}`}
+                        onClick={() => setEditar(movimiento)}
+                      >
                         <BiSolidPencil />
                       </button>
                     </td>
